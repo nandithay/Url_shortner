@@ -1,4 +1,4 @@
-# URL Shortener
+# URL Shortener with Spring Boot, Redis & MySQL
 
 A production-oriented URL shortening service built with **Spring Boot 3**, **MySQL**, and **Redis**. It generates compact short links, redirects users with low latency via caching, and exposes analytics for click tracking.
 
@@ -120,7 +120,6 @@ sequenceDiagram
     A-->>C: 302 Redirect
 ```
 
-Click counts are always persisted in MySQL using an atomic `UPDATE ... SET click_count = click_count + 1` for concurrency safety.
 
 ---
 
