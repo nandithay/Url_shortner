@@ -29,37 +29,19 @@ This service allows clients to:
 
 ```mermaid
 flowchart TB
-    Client([Client / Browser])
 
-    subgraph App["Spring Boot Application"]
-        UC[UrlController]
-        RC[RedirectController]
-        AC[AnalyticsController]
-        US[UrlService]
-        SCG[ShortCodeGenerator]
-        GEH[GlobalExceptionHandler]
-    end
+    Client([Client])
 
-    subgraph Data["Data Stores"]
-        MySQL[(MySQL<br/>url_mappings)]
-        Redis[(Redis<br/>shortCode → originalUrl)]
-    end
+    App[Spring Boot Application]
 
-    Client -->|POST /api/urls| UC
-    Client -->|GET /{shortCode}| RC
-    Client -->|GET /api/analytics/{shortCode}| AC
+    Redis[(Redis Cache)]
+    MySQL[(MySQL Database)]
 
-    UC --> US
-    RC --> US
-    AC --> US
-
-    US --> SCG
-    US --> MySQL
-    US --> Redis
-
-    US -.->|exceptions| GEH
-    GEH -->|JSON errors| Client
+    Client --> App
+    App --> Redis
+    App --> MySQL
 ```
+
 
 **Request flow summary**
 
